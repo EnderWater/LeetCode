@@ -1,3 +1,8 @@
+/*
+* Beats 47.95% in speed
+* Beats 36.66% in memory
+*/
+
 #include <vector>
 // Definition for singly-linked list.
  struct ListNode {
@@ -10,18 +15,25 @@
 
 class Solution {
 public:
-    int pairSums(ListNode* head) 
+    int pairSum(ListNode* head) 
     {
         ListNode* temp = head;
         std::vector<int> vec;
-        int size;
 
         while (temp != nullptr)
         {
-            size++;
             vec.push_back(temp->val);
             temp = temp->next;
         }
+        int max = 0;
+        int n = vec.size();
+        for (int i=0; i<n/2; i++)
+        {
+            int vecSum = vec[i]+vec[n-i-1];
+            if (vecSum > max)
+                max = vecSum;
+        }
+        return max;
     }
 };
 
@@ -32,5 +44,5 @@ int main()
     head->next->next = new ListNode(2);
     head->next->next->next = new ListNode(3);
     Solution sol;
-    sol.pairSums(head);
+    sol.pairSum(head);
 }
